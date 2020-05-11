@@ -1,11 +1,11 @@
 package hello;
 
-import java.util.concurrent.atomic.AtomicLong;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.concurrent.atomic.AtomicLong;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
@@ -53,4 +53,26 @@ public class GreetingController {
         return new Greeting(counter.incrementAndGet(), String.format(template, name) +
                 String.format(youre, age));
     }
+
+    @RequestMapping(path = "/defineBinaryGender", method = GET)
+    public String gender(@RequestParam(value = "name", defaultValue = "World") String name) {
+        String gender;
+        if (name.endsWith("a")) {
+            gender = "F";
+        } else gender = "M";
+        return "Name gender : " + gender;
+    }
+    // metoda zwraca plec na podstawie tego jaka litera konczy sie wpisane imie. uzyto metody
+    //String.endsWith(String sufix)
+
+    @RequestMapping(path = "/matchExample", method = GET)
+    public String match(@RequestParam(value = "name", defaultValue = "World") String name) {
+        String matches;
+        if (name.equals("Sofiia")) {
+            matches = "Yes";
+        } else matches = "No";
+        return "Name matches : " + matches;
+    }
+    // metoda sprawdza czy wpisane imie jest podobne do wzorca. uzyto metody String.equals
+
 } 
